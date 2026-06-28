@@ -62,6 +62,11 @@ Wealth Management Dashboard
 https://fin-track-05o5.onrender.com/
 
 ## Demo Video
+<img width="1902" height="957" alt="Image" src="https://github.com/user-attachments/assets/6a577d49-587e-4728-8ab8-63fdf961d145" />
+
+<img width="1901" height="960" alt="Image" src="https://github.com/user-attachments/assets/ba874fa4-ed03-46bc-8175-2b3e9b1588dd" />
+
+<img width="1881" height="962" alt="Image" src="https://github.com/user-attachments/assets/2f433898-d1a4-4c25-bc3d-98fbb7f5d6a8" />
 
 <video src="image_Blueledger/Recording 2026-06-28 204103.mp4" width="640" height="360" controls></video>
 
