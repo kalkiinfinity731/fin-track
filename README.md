@@ -1,3 +1,13 @@
+Intern Details 
+
+Intern ID: CITS3867 
+
+Name: Nandhini A 
+
+No. of Weeks: 4 Weeks 
+
+Project Name: Expense tracker dashboard(Blueledger)
+
 # Fin-Track
 
 Wealth Management Dashboard
