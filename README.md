@@ -46,9 +46,13 @@ Wealth Management Dashboard
 - Data export/import
 - Budget spending sync with transactions
 - Unit tests
-
 ## Live Demo
+
 https://fin-track-05o5.onrender.com/
+
+## Demo Video
+
+<video src="image_Blueledger/Recording 2026-06-28 204103.mp4" width="640" height="360" controls></video>
 
 ## Local Development
 ```bash
