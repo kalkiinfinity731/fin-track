@@ -35,3 +35,5 @@ npm start
 ```
 
 Open http://localhost:3000
+
+public URL: https://fin-track-05o5.onrender.com/
