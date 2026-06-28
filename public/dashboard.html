@@ -1,0 +1,435 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>BlueLedger Dashboard | Wealth Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffb596",
+                        "tertiary": "#943700",
+                        "on-background": "#191c1d",
+                        "surface-dim": "#d9dadb",
+                        "surface": "#f8f9fa",
+                        "surface-variant": "#e1e3e4",
+                        "surface-tint": "#0053db",
+                        "surface-white": "#FFFFFF",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#bc4800",
+                        "text-muted": "#6B7280",
+                        "primary-container": "#2563eb",
+                        "border-subtle": "#E5E7EB",
+                        "on-secondary-fixed-variant": "#404758",
+                        "background": "#f8f9fa",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary": "#ffffff",
+                        "outline": "#737686",
+                        "on-surface": "#191c1d",
+                        "on-tertiary-container": "#ffede6",
+                        "surface-bright": "#f8f9fa",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-fixed-dim": "#c0c6db",
+                        "surface-container": "#edeeef",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-primary-fixed": "#00174b",
+                        "secondary": "#575e70",
+                        "surface-container-high": "#e7e8e9",
+                        "on-surface-variant": "#434655",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-container": "#5c6274",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f3f4f5",
+                        "tertiary-fixed": "#ffdbcd",
+                        "outline-variant": "#c3c6d7",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#141b2b",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#b4c5ff",
+                        "secondary-container": "#d9dff5",
+                        "primary": "#004ac6",
+                        "on-tertiary-fixed": "#360f00",
+                        "secondary-fixed": "#dce2f7",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e1e3e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "2rem",
+                        "gutter": "1.5rem",
+                        "stack-sm": "0.5rem",
+                        "margin-mobile": "1rem",
+                        "container-max": "1280px",
+                        "stack-md": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        .doodle-bg {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          opacity: 0.02;
+          pointer-events: none;
+        }
+        .doodle-shape {
+          fill: none;
+          stroke: #004ac6;
+          stroke-width: 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+  <svg class="doodle-bg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle class="doodle-shape" cx="10" cy="10" r="5"/>
+    <circle class="doodle-shape" cx="90" cy="20" r="4"/>
+    <circle class="doodle-shape" cx="50" cy="95" r="6"/>
+    <path class="doodle-shape" d="M20 35 Q30 25 40 35 T60 35"/>
+    <path class="doodle-shape" d="M65 55 Q70 45 75 55 T90 55"/>
+    <path class="doodle-shape" d="M5 70 Q12 60 19 70 T35 70"/>
+    <rect class="doodle-shape" x="75" y="75" width="8" height="8" rx="1"/>
+    <rect class="doodle-shape" x="35" y="10" width="5" height="5" rx="1"/>
+  </svg>
+  <!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-stack-sm bg-surface-white border-b border-border-subtle lg:pl-[256px] shadow-sm">
+<div class="flex items-center gap-4 lg:hidden">
+<img alt="BlueLedger Logo" class="w-8 h-8 rounded-lg" src="https://lh3.googleusercontent.com/aida/AP1WRLtPW5NtJfUdLHfWGLs4dkjnZ9gaZVVU_vAb8FC9XgJ8aUjDDI9-Ke1xDVZVDaOO8WZpaG1K4vcecv5daptigjUYt2TcOnA1_ySlSe0_m9A2CfnnVBmTT6gwsavhGwioJgyOeUDD60b17xhObr39qYxDrsgOpARAMGMz01DvQtKjIGNok9rthmzA3b_nzWuZcAOHJ83ripI9cMQpKXVXVmnr06fxFPMoSBBBZyWusqU0yOJ1VXNA6j9Q3g">
+<span class="text-headline-md font-headline-md font-bold text-primary">BlueLedger</span>
+</div>
+<div class="hidden lg:block">
+<h1 class="text-headline-md font-headline-md font-bold text-on-surface">Dashboard</h1>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-label-sm">
+                JD
+            </div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-screen fixed left-0 top-0 w-64 bg-surface-white border-r border-border-subtle p-gutter z-50">
+<div class="flex items-center gap-3 mb-stack-lg">
+<img alt="BlueLedger Logo" class="w-10 h-10 rounded-xl" src="https://lh3.googleusercontent.com/aida/AP1WRLtPW5NtJfUdLHfWGLs4dkjnZ9gaZVVU_vAb8FC9XgJ8aUjDDI9-Ke1xDVZVDaOO8WZpaG1K4vcecv5daptigjUYt2TcOnA1_ySlSe0_m9A2CfnnVBmTT6gwsavhGwioJgyOeUDD60b17xhObr39qYxDrsgOpARAMGMz01DvQtKjIGNok9rthmzA3b_nzWuZcAOHJ83ripI9cMQpKXVXVmnr06fxFPMoSBBBZyWusqU0yOJ1VXNA6j9Q3g">
+<div>
+<div class="text-headline-md font-headline-md font-bold text-primary">BlueLedger</div>
+<div class="text-label-sm font-label-sm text-text-muted">Wealth Management</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg font-semibold scale-95 transition-transform duration-150" href="dashboard.html">
+<span class="material-symbols-outlined filled-icon">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-fixed-variant hover:bg-surface-container transition-all rounded-lg" href="transactions.html">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-label-md font-label-md">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-fixed-variant hover:bg-surface-container transition-all rounded-lg" href="reports.html">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-label-md font-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-fixed-variant hover:bg-surface-container transition-all rounded-lg" href="profile.html">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-md font-label-md">Profile</span>
+</a>
+<div class="mt-8">
+<a href="transactions.html" class="w-full bg-primary text-on-primary px-4 py-3 rounded-lg flex items-center justify-center gap-2 font-semibold hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+<span class="text-label-md font-label-md">Add Transaction</span>
+</a>
+</div>
+</nav>
+<div class="mt-auto flex flex-col gap-1 border-t border-border-subtle pt-4">
+
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-fixed-variant hover:bg-surface-container transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-label-md font-label-md">Log Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:pl-64 pt-[72px] pb-24 lg:pb-8 min-h-screen">
+<div class="max-w-container-max mx-auto px-4 lg:px-gutter py-8 space-y-stack-lg">
+<!-- Hero Balance Card (Bento Style 1) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-primary rounded-xl p-8 text-on-primary relative overflow-hidden shadow-sm">
+<div class="relative z-10 flex flex-col justify-between h-full">
+<div>
+<p class="text-label-md font-label-md opacity-80 mb-2">Total Net Worth</p>
+<h2 class="text-headline-lg font-headline-lg">₹0.00</h2>
+<div class="flex items-center gap-2 mt-4 text-primary-fixed">
+<span class="material-symbols-outlined text-label-md">trending_up</span>
+<span class="text-label-sm font-label-sm">No activity from last month</span>
+</div>
+</div>
+<div class="mt-8 flex gap-4">
+<button class="bg-surface-white text-primary px-4 py-2 rounded-lg font-semibold text-label-md">Transfer</button>
+<button class="border border-white/30 text-white px-4 py-2 rounded-lg font-semibold text-label-md">View Analytics</button>
+</div>
+</div>
+<!-- Decorative Background Element -->
+<div class="absolute -right-16 -top-16 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+</div>
+<div class="bg-surface-white border border-border-subtle rounded-xl p-6 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-headline-md font-headline-md text-on-surface">Quick Stats</h3>
+<span class="material-symbols-outlined text-primary">auto_graph</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-end border-b border-border-subtle pb-3">
+<div>
+<p class="text-label-sm font-label-sm text-text-muted">Monthly Income</p>
+<p class="text-headline-md font-headline-md">₹0.00</p>
+</div>
+<span class="text-green-600 text-label-sm font-label-sm">+₹0</span>
+</div>
+<div class="flex justify-between items-end">
+<div>
+<p class="text-label-sm font-label-sm text-text-muted">Monthly Expenses</p>
+<p class="text-headline-md font-headline-md">₹0.00</p>
+</div>
+<span class="text-red-600 text-label-sm font-label-sm">-₹0</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Middle Section: Recent Transactions & Chart -->
+<section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+<!-- Transactions Table -->
+<div class="xl:col-span-2 bg-surface-white border border-border-subtle rounded-xl overflow-hidden shadow-sm">
+<div class="px-6 py-4 border-b border-border-subtle flex justify-between items-center">
+<h3 class="text-headline-md font-headline-md text-on-surface">Recent Transactions</h3>
+<button class="text-primary text-label-md font-label-md hover:underline">See all</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-label-sm font-label-sm text-text-muted">
+<tr>
+<th class="px-6 py-3">Vendor / Account</th>
+<th class="px-6 py-3">Category</th>
+<th class="px-6 py-3">Date</th>
+<th class="px-6 py-3 text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle">
+<tr>
+<td class="px-6 py-8 text-center text-text-muted italic" colspan="4">
+                    No transactions recorded yet.
+                </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Spending by Category Card -->
+<div class="bg-surface-white border border-border-subtle rounded-xl p-6 shadow-sm">
+<h3 class="text-headline-md font-headline-md text-on-surface mb-6">Spending Analysis</h3>
+<div class="aspect-square w-full relative flex items-center justify-center">
+<!-- Simulated Empty Chart -->
+<div class="w-48 h-48 rounded-full border-[12px] border-surface-container relative">
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-headline-md font-bold text-on-surface">₹0</span>
+<span class="text-label-sm text-text-muted">Total Spent</span>
+</div>
+</div>
+</div>
+<div class="mt-8 space-y-3">
+<div class="flex items-center justify-between opacity-50">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-surface-container"></span>
+<span class="text-label-md text-on-surface-variant">Housing</span>
+</div>
+<span class="text-label-md font-bold">0%</span>
+</div>
+<div class="flex items-center justify-between opacity-50">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-surface-container"></span>
+<span class="text-label-md text-on-surface-variant">Groceries</span>
+</div>
+<span class="text-label-md font-bold">0%</span>
+</div>
+<div class="flex items-center justify-between opacity-50">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-surface-container"></span>
+<span class="text-label-md text-on-surface-variant">Others</span>
+</div>
+<span class="text-label-md font-bold">0%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Ad/Promotion Bento -->
+
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-surface-white py-3 px-4 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] border-t border-border-subtle">
+<a class="flex flex-col items-center justify-center text-primary font-bold scale-90 transition-transform" href="dashboard.html">
+<span class="material-symbols-outlined filled-icon">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="transactions.html">
+    <span class="material-symbols-outlined">list_alt</span>
+    <span class="text-label-sm font-label-sm">Txns</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant" href="reports.html">
+    <span class="material-symbols-outlined">analytics</span>
+    <span class="text-label-sm font-label-sm">Reports</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant" href="profile.html">
+    <span class="material-symbols-outlined">person</span>
+    <span class="text-label-sm font-label-sm">Profile</span>
+  </a>
+</nav>
+<script>
+     function getCurrentUser() {
+       const userStr = localStorage.getItem('currentUser');
+       return userStr ? JSON.parse(userStr) : null;
+     }
+     
+     function loadUserData() {
+       const user = getCurrentUser();
+       if (user) {
+         const initials = (user.name || 'U').charAt(0);
+         document.querySelectorAll('.rounded-full.bg-primary-container').forEach(el => {
+           el.textContent = initials;
+         });
+       }
+     }
+     
+     function loadStats() {
+       fetch('/api/stats')
+         .then(res => res.json())
+         .then(data => {
+           document.querySelector('h2.text-headline-lg').textContent = '₹' + data.totalNetWorth.toFixed(2);
+           document.querySelectorAll('p.text-headline-md.font-headline-md')[0].textContent = '₹' + data.monthlyIncome.toFixed(2);
+           document.querySelectorAll('p.text-headline-md.font-headline-md')[1].textContent = '₹' + data.monthlyExpenses.toFixed(2);
+         });
+     }
+     
+     function loadTransactions() {
+       fetch('/api/transactions')
+         .then(res => res.json())
+         .then(txns => {
+           const tbody = document.querySelector('tbody.divide-y');
+           tbody.innerHTML = '';
+           
+           if (txns.length === 0) {
+             tbody.innerHTML = '<tr><td class="px-6 py-8 text-center text-text-muted italic" colspan="4">No transactions recorded yet.</td></tr>';
+           } else {
+             txns.slice(-5).reverse().forEach(t => {
+               const isExpense = t.amount < 0;
+               const row = document.createElement('tr');
+               row.innerHTML = `
+                 <td class="px-6 py-4">${t.description || t.category}</td>
+                 <td class="px-6 py-4">${t.category}</td>
+                 <td class="px-6 py-4">${t.date}</td>
+                 <td class="px-6 py-4 text-right ${isExpense ? 'text-error' : 'text-primary'}">₹${Math.abs(t.amount).toFixed(2)}</td>
+               `;
+               tbody.appendChild(row);
+             });
+           }
+         });
+     }
+     
+     function loadSpendingAnalysis() {
+       fetch('/api/transactions')
+         .then(res => res.json())
+         .then(txns => {
+           const expenses = txns.filter(t => t.amount < 0);
+           const categoryTotals = {};
+           expenses.forEach(t => {
+             const cat = t.category || 'Other';
+             categoryTotals[cat] = (categoryTotals[cat] || 0) + Math.abs(t.amount);
+           });
+           const totalSpent = Object.values(categoryTotals).reduce((a, b) => a + b, 0);
+           
+           const spendingDiv = document.querySelector('.space-y-3');
+           spendingDiv.innerHTML = '';
+           
+           Object.entries(categoryTotals).forEach(([cat, amt]) => {
+             const pct = totalSpent > 0 ? (amt / totalSpent * 100).toFixed(0) : 0;
+             const color = cat === 'Housing' ? 'bg-tertiary-container' : 
+                          cat === 'Food & Drink' ? 'bg-secondary-container' : 
+                          cat === 'Transport' ? 'bg-primary-container' : 
+                          'bg-surface-container';
+             spendingDiv.innerHTML += `
+               <div class="flex items-center justify-between">
+                 <div class="flex items-center gap-2">
+                   <span class="w-3 h-3 rounded-full ${color}"></span>
+                   <span class="text-label-md text-on-surface-variant">${cat}</span>
+                 </div>
+                 <span class="text-label-md font-bold">${pct}%</span>
+               </div>
+             `;
+           });
+         });
+     }
+     
+     document.addEventListener('DOMContentLoaded', () => {
+       loadUserData();
+       loadStats();
+       loadTransactions();
+       loadSpendingAnalysis();
+       document.querySelectorAll('.bg-surface-white').forEach(card => {
+         card.addEventListener('mouseenter', () => {
+           card.classList.add('shadow-md');
+           card.classList.remove('shadow-sm');
+         });
+         card.addEventListener('mouseleave', () => {
+           card.classList.add('shadow-sm');
+           card.classList.remove('shadow-md');
+         });
+       });
+     });
+   </script>
+</body></html>

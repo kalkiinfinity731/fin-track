@@ -1,0 +1,507 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>BlueLedger - Transactions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed-dim": "#ffb596",
+            "tertiary": "#943700",
+            "on-background": "#191c1d",
+            "surface-dim": "#d9dadb",
+            "surface": "#f8f9fa",
+            "surface-variant": "#e1e3e4",
+            "surface-tint": "#0053db",
+            "surface-white": "#FFFFFF",
+            "on-tertiary": "#ffffff",
+            "tertiary-container": "#bc4800",
+            "text-muted": "#6B7280",
+            "primary-container": "#2563eb",
+            "border-subtle": "#E5E7EB",
+            "on-secondary-fixed-variant": "#404758",
+            "background": "#f8f9fa",
+            "on-primary-container": "#eeefff",
+            "on-secondary": "#ffffff",
+            "outline": "#737686",
+            "on-surface": "#191c1d",
+            "on-tertiary-container": "#ffede6",
+            "surface-bright": "#f8f9fa",
+            "primary-fixed-dim": "#b4c5ff",
+            "inverse-on-surface": "#f0f1f2",
+            "secondary-fixed-dim": "#c0c6db",
+            "surface-container": "#edeeef",
+            "surface-container-lowest": "#ffffff",
+            "inverse-surface": "#2e3132",
+            "on-tertiary-fixed-variant": "#7d2d00",
+            "on-primary-fixed": "#00174b",
+            "secondary": "#575e70",
+            "surface-container-high": "#e7e8e9",
+            "on-surface-variant": "#434655",
+            "primary-fixed": "#dbe1ff",
+            "on-secondary-container": "#5c6274",
+            "on-error-container": "#93000a",
+            "surface-container-low": "#f3f4f5",
+            "tertiary-fixed": "#ffdbcd",
+            "outline-variant": "#c3c6d7",
+            "error": "#ba1a1a",
+            "on-secondary-fixed": "#141b2b",
+            "on-error": "#ffffff",
+            "error-container": "#ffdad6",
+            "inverse-primary": "#b4c5ff",
+            "secondary-container": "#d9dff5",
+            "primary": "#004ac6",
+            "on-tertiary-fixed": "#360f00",
+            "secondary-fixed": "#dce2f7",
+            "on-primary-fixed-variant": "#003ea8",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#e1e3e4"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "stack-lg": "2rem",
+            "gutter": "1.5rem",
+            "stack-sm": "0.5rem",
+            "margin-mobile": "1rem",
+            "container-max": "1280px",
+            "stack-md": "1rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Inter"],
+            "label-md": ["Inter"],
+            "label-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-md": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .doodle-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.02;
+      pointer-events: none;
+    }
+    .doodle-shape {
+      fill: none;
+      stroke: #004ac6;
+      stroke-width: 1;
+    }
+    .type-btn-active { background-color: #004ac6 !important; color: #ffffff !important; }
+    .type-btn-inactive { background-color: #edeeef; color: #191c1d; }
+  </style>
+</head>
+<body class="bg-background text-on-surface">
+  <svg class="doodle-bg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle class="doodle-shape" cx="12" cy="15" r="5"/>
+    <circle class="doodle-shape" cx="88" cy="22" r="4"/>
+    <circle class="doodle-shape" cx="45" cy="90" r="6"/>
+    <path class="doodle-shape" d="M22 30 Q32 20 42 30 T62 30"/>
+    <path class="doodle-shape" d="M68 55 Q75 45 82 55 T95 55"/>
+    <path class="doodle-shape" d="M6 65 Q11 55 16 65 T26 65"/>
+    <rect class="doodle-shape" x="76" y="78" width="7" height="7" rx="1"/>
+    <rect class="doodle-shape" x="35" y="8" width="4" height="4" rx="1"/>
+  </svg>
+  <!-- Desktop SideNavBar -->
+<aside class="hidden lg:flex flex-col h-screen fixed left-0 top-0 p-gutter w-64 bg-surface-white border-r border-border-subtle z-50">
+<div class="flex items-center gap-3 mb-stack-lg">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">BlueLedger</h1>
+<p class="text-label-sm font-label-sm text-text-muted">Wealth Management</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-fixed-variant hover:bg-surface-container rounded-lg transition-all text-label-md font-label-md" href="dashboard.html">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+      </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg font-semibold transition-all scale-95 duration-150 text-label-md font-label-md" href="transactions.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span> Transactions
+      </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-fixed-variant hover:bg-surface-container rounded-lg transition-all text-label-md font-label-md" href="reports.html">
+<span class="material-symbols-outlined">analytics</span> Reports
+      </a>
+</nav>
+<div class="mt-auto space-y-1 pt-stack-lg border-t border-border-subtle">
+<button id="sidebar-add-txn" class="w-full mb-stack-md flex items-center justify-center gap-2 bg-primary text-on-primary py-3 px-4 rounded-lg font-semibold shadow-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span> Add Transaction
+      </button>
+<a class="flex items-center gap-3 px-4 py-2 text-on-secondary-fixed-variant hover:bg-surface-container rounded-lg text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined">logout</span> Log Out
+      </a>
+</div>
+</aside>
+<!-- Mobile TopAppBar -->
+<header class="lg:hidden fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-stack-sm bg-surface-white border-b border-border-subtle shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="text-headline-md font-headline-md font-bold text-primary">BlueLedger</span>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 pt-20 lg:pt-0 min-h-screen pb-24 lg:pb-0">
+<div class="max-w-container-max mx-auto p-gutter lg:p-12">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-gutter mb-stack-lg">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Transactions</h2>
+<p class="text-body-md font-body-md text-text-muted mt-1">Monitor and manage your daily financial movements.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 bg-surface-white border border-border-subtle px-4 py-2 rounded-lg text-label-md font-label-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">filter_list</span> Filter
+          </button>
+<button class="flex items-center gap-2 bg-surface-white border border-border-subtle px-4 py-2 rounded-lg text-label-md font-label-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">download</span> Export
+          </button>
+</div>
+</section>
+<!-- Stats Summary (Asymmetric Layout) -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-stack-lg">
+<div class="md:col-span-8 bg-primary rounded-xl p-8 text-on-primary shadow-sm flex flex-col justify-between overflow-hidden relative">
+<div class="relative z-10">
+<p class="text-label-md font-label-md opacity-80 mb-2 uppercase tracking-wider">Total Balance</p>
+<h3 id="total-balance" class="text-[42px] leading-tight font-bold">₹0.00</h3>
+<div class="flex items-center gap-2 mt-4 text-primary-fixed">
+<span class="text-label-sm font-label-sm">No activity recorded yet</span>
+</div>
+</div>
+<div class="absolute top-0 right-0 h-full w-1/2 opacity-10 pointer-events-none">
+<svg class="w-full h-full transform translate-x-1/4" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<path d="M47.7,-64.3C61.4,-56.9,71.8,-42.6,76.5,-26.8C81.2,-11.1,80.1,6,74.5,21.3C68.9,36.5,58.7,49.9,45.4,59.3C32.1,68.7,15.6,74.2,-1.3,76C-18.2,77.7,-36.5,75.8,-51.2,66.8C-65.9,57.7,-77.1,41.4,-81.4,24.1C-85.7,6.8,-83.1,-11.5,-75.4,-27.1C-67.7,-42.8,-54.9,-55.8,-40.5,-63C-26.1,-70.2,-13,-71.5,1.7,-73.8C16.4,-76.1,34,-71.7,47.7,-64.3Z" fill="#FFFFFF" transform="translate(100 100)"></path>
+</svg>
+</div>
+</div>
+<div class="md:col-span-4 bg-surface-white border border-border-subtle rounded-xl p-6 shadow-sm">
+<p class="text-label-md font-label-md text-text-muted mb-4">Quick Insights</p>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined text-sm">arrow_upward</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface">Expenses</span>
+</div>
+<span id="expenses-amount" class="text-label-md font-bold text-error">₹0.00</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-sm">arrow_downward</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface">Income</span>
+</div>
+<span id="income-amount" class="text-label-md font-bold text-primary">₹0.00</span>
+</div>
+<div class="pt-4 border-t border-border-subtle flex justify-center">
+<span id="insights-text" class="text-text-muted text-label-sm font-label-sm">No data to analyze</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Transactions Table Card -->
+<section class="bg-surface-white border border-border-subtle rounded-xl shadow-sm overflow-hidden">
+<div class="p-gutter border-b border-border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="relative w-full sm:max-w-xs">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-border-subtle rounded-lg focus:ring-2 focus:ring-primary-container focus:border-primary outline-none transition-all text-body-sm" placeholder="Search transactions..." type="text">
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 text-label-sm font-label-sm rounded-md bg-surface-container text-on-surface">All</button>
+<button class="px-3 py-1.5 text-label-sm font-label-sm rounded-md text-text-muted hover:bg-surface-container transition-colors">Expenses</button>
+<button class="px-3 py-1.5 text-label-sm font-label-sm rounded-md text-text-muted hover:bg-surface-container transition-colors">Income</button>
+</div>
+</div>
+<div class="overflow-x-auto min-h-[300px] flex flex-col">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-label-sm font-label-sm text-text-muted uppercase tracking-wider">
+<th class="px-gutter py-4 font-semibold">Date</th>
+<th class="px-gutter py-4 font-semibold">Category</th>
+<th class="px-gutter py-4 font-semibold">Description</th>
+<th class="px-gutter py-4 font-semibold text-right">Amount</th>
+<th class="px-gutter py-4 font-semibold text-center">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle" id="transactions-body">
+</tbody>
+</table>
+<div id="empty-state" class="flex-1 flex flex-col items-center justify-center py-12 px-gutter text-center">
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">receipt_long</span>
+</div>
+<h4 class="text-headline-md font-headline-md text-on-surface">No transactions yet</h4>
+<p class="text-body-md text-text-muted mt-2 max-w-xs mx-auto">Start by adding your first transaction to see your financial activity here.</p>
+<button class="mt-6 flex items-center gap-2 bg-primary text-on-primary py-2.5 px-6 rounded-lg font-semibold shadow-sm hover:opacity-90 transition-opacity" id="add-txn-btn">
+<span class="material-symbols-outlined">add</span> Add Transaction
+          </button>
+    </div>
+  </div>
+</section>
+
+<!-- Add Transaction Modal -->
+<div id="txn-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div class="bg-surface-white rounded-2xl p-6 max-w-md w-full mx-4 transform transition-all duration-300 scale-95 opacity-0" id="txn-modal-content">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-headline-md font-headline-md text-on-surface">Add Transaction</h3>
+      <button id="close-txn-modal" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="space-y-4">
+      <div>
+        <label class="text-label-sm font-label-sm text-on-surface mb-1 block">Type</label>
+        <div class="flex gap-2">
+          <button id="income-btn" class="flex-1 py-2 px-4 rounded-lg bg-primary text-on-primary font-semibold type-btn-active">Income</button>
+          <button id="expense-btn" class="flex-1 py-2 px-4 rounded-lg bg-surface-container text-on-surface-variant type-btn-inactive">Expense</button>
+        </div>
+      </div>
+      <div>
+        <label class="text-label-sm font-label-sm text-on-surface mb-1 block">Category</label>
+        <select id="txn-category" class="w-full px-3 py-2 border border-border-subtle rounded-lg bg-surface-container-low focus:ring-2 focus:ring-primary-container outline-none">
+          <option value="Housing">Housing</option>
+          <option value="Food & Drink">Food & Drink</option>
+          <option value="Transport">Transport</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Healthcare">Healthcare</option>
+          <option value="Education">Education</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div id="other-category-div" class="hidden">
+        <label class="text-label-sm font-label-sm text-on-surface mb-1 block">Custom Category</label>
+        <input id="other-category" class="w-full px-3 py-2 border border-border-subtle rounded-lg bg-surface-container-low focus:ring-2 focus:ring-primary-container outline-none" placeholder="Enter category name"/>
+      </div>
+      <div>
+        <label class="text-label-sm font-label-sm text-on-surface mb-1 block">Date</label>
+        <input id="txn-date" class="w-full px-3 py-2 border border-border-subtle rounded-lg bg-surface-container-low focus:ring-2 focus:ring-primary-container outline-none" type="date"/>
+      </div>
+      <div>
+        <label class="text-label-sm font-label-sm text-on-surface mb-1 block">Amount (₹)</label>
+        <input id="txn-amount" class="w-full px-3 py-2 border border-border-subtle rounded-lg bg-surface-container-low focus:ring-2 focus:ring-primary-container outline-none" placeholder="0.00" type="number" step="0.01"/>
+      </div>
+      <div>
+        <label class="text-label-sm font-label-sm text-on-surface mb-1 block">Description</label>
+        <input id="txn-desc" class="w-full px-3 py-2 border border-border-subtle rounded-lg bg-surface-container-low focus:ring-2 focus:ring-primary-container outline-none" placeholder="Transaction details"/>
+      </div>
+      <button id="save-txn" class="w-full bg-primary text-on-primary py-2.5 rounded-lg font-semibold hover:opacity-90 transition-opacity">Save Transaction</button>
+    </div>
+  </div>
+</div>
+
+</div>
+</main>
+<!-- Mobile BottomNavBar -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-surface-white py-3 px-4 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] border-t border-border-subtle rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors py-1 px-3 rounded-lg" href="dashboard.html">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold scale-90 transition-transform py-1 px-3 rounded-lg" href="transactions.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">list_alt</span>
+<span class="text-label-sm font-label-sm">Txns</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors py-1 px-3 rounded-lg" href="reports.html">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-label-sm font-label-sm">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors py-1 px-3 rounded-lg" href="profile.html">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</a>
+</nav>
+<!-- Floating Action Button (FAB) - Desktop only contextually -->
+<button id="fab-add-txn" class="fixed bottom-gutter right-gutter hidden lg:flex items-center justify-center w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg hover:scale-110 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined">add</span>
+</button>
+<script>
+     function getCurrentUser() {
+       const userStr = localStorage.getItem('currentUser');
+       return userStr ? JSON.parse(userStr) : null;
+     }
+     
+     const tbody = document.getElementById('transactions-body');
+     const emptyState = document.getElementById('empty-state');
+     
+     function loadStats() {
+       fetch('/api/stats')
+         .then(res => res.json())
+         .then(data => {
+           document.getElementById('total-balance').textContent = '₹' + data.totalNetWorth.toFixed(2);
+           document.getElementById('income-amount').textContent = '₹' + data.monthlyIncome.toFixed(2);
+           document.getElementById('expenses-amount').textContent = '₹' + data.monthlyExpenses.toFixed(2);
+           document.getElementById('insights-text').textContent = data.totalNetWorth === 0 ? 'No data to analyze' : 'Updated';
+         });
+     }
+     
+     function loadTransactions() {
+       fetch('/api/transactions')
+         .then(res => res.json())
+         .then(txns => {
+           if (tbody) {
+             tbody.innerHTML = '';
+             txns.forEach(t => {
+               const isExpense = t.amount < 0;
+               const row = document.createElement('tr');
+               row.innerHTML = `
+                 <td class="px-gutter py-4">${t.date}</td>
+                 <td class="px-gutter py-4">${t.category}</td>
+                 <td class="px-gutter py-4">${t.description}</td>
+                 <td class="px-gutter py-4 text-right ${isExpense ? 'text-error' : 'text-primary'}">₹${Math.abs(t.amount).toFixed(2)}</td>
+                 <td class="px-gutter py-4 text-center">${t.status}</td>
+               `;
+               tbody.appendChild(row);
+             });
+           }
+           if (emptyState) {
+             emptyState.classList.toggle('hidden', txns.length > 0);
+           }
+         });
+     }
+     
+     document.addEventListener('DOMContentLoaded', () => {
+       loadStats();
+       loadTransactions();
+       
+       const addBtn = document.getElementById('add-txn-btn');
+       const fabBtn = document.getElementById('fab-add-txn');
+       const sidebarAddBtn = document.getElementById('sidebar-add-txn');
+       const modal = document.getElementById('txn-modal');
+       const modalContent = document.getElementById('txn-modal-content');
+       const closeModal = document.getElementById('close-txn-modal');
+       const saveBtn = document.getElementById('save-txn');
+       const categorySelect = document.getElementById('txn-category');
+       const otherCategoryDiv = document.getElementById('other-category-div');
+       const otherCategory = document.getElementById('other-category');
+       const incomeBtn = document.getElementById('income-btn');
+       const expenseBtn = document.getElementById('expense-btn');
+       
+       let txnType = 'income';
+       
+       // Set default date to today
+       document.getElementById('txn-date').valueAsDate = new Date();
+       
+       function showModal() {
+         modal.classList.remove('hidden');
+         setTimeout(() => {
+           modalContent.classList.remove('scale-95', 'opacity-0');
+           modalContent.classList.add('scale-100', 'opacity-100');
+         }, 10);
+       }
+       
+       function hideModal() {
+         modalContent.classList.remove('scale-100', 'opacity-100');
+         modalContent.classList.add('scale-95', 'opacity-0');
+         setTimeout(() => modal.classList.add('hidden'), 300);
+       }
+       
+       if (sidebarAddBtn) {
+         sidebarAddBtn.addEventListener('click', showModal);
+       }
+       if (addBtn) {
+         addBtn.addEventListener('click', showModal);
+       }
+       if (fabBtn) {
+         fabBtn.addEventListener('click', showModal);
+       }
+       if (closeModal) {
+         closeModal.addEventListener('click', hideModal);
+       }
+       
+       if (incomeBtn && expenseBtn) {
+         incomeBtn.addEventListener('click', () => {
+           txnType = 'income';
+           incomeBtn.classList.add('type-btn-active');
+           incomeBtn.classList.remove('type-btn-inactive');
+           expenseBtn.classList.remove('type-btn-active');
+           expenseBtn.classList.add('type-btn-inactive');
+         });
+         
+         expenseBtn.addEventListener('click', () => {
+           txnType = 'expense';
+           expenseBtn.classList.add('type-btn-active');
+           expenseBtn.classList.remove('type-btn-inactive');
+           incomeBtn.classList.remove('type-btn-active');
+           incomeBtn.classList.add('type-btn-inactive');
+         });
+       }
+       
+       if (categorySelect && otherCategoryDiv) {
+         categorySelect.addEventListener('change', () => {
+           otherCategoryDiv.classList.toggle('hidden', categorySelect.value !== 'Other');
+         });
+       }
+       
+       if (saveBtn) {
+         saveBtn.addEventListener('click', () => {
+           const amount = parseFloat(document.getElementById('txn-amount').value) || 0;
+           let category = categorySelect ? categorySelect.value : '';
+           if (category === 'Other' && otherCategory) category = otherCategory.value || 'Other';
+           const description = document.getElementById('txn-desc') ? document.getElementById('txn-desc').value : '';
+           const date = document.getElementById('txn-date') ? document.getElementById('txn-date').value : new Date().toISOString().split('T')[0];
+           const finalAmount = txnType === 'expense' ? -Math.abs(amount) : Math.abs(amount);
+           
+           fetch('/api/transactions', {
+             method: 'POST',
+             headers: { 'Content-Type': 'application/json' },
+             body: JSON.stringify({ amount: finalAmount, category, description, date })
+           })
+           .then(res => res.json())
+           .then(data => {
+             if (tbody) {
+               const row = document.createElement('tr');
+               row.innerHTML = `
+                 <td class="px-gutter py-4">${data.date}</td>
+                 <td class="px-gutter py-4">${data.category}</td>
+                 <td class="px-gutter py-4">${data.description}</td>
+                 <td class="px-gutter py-4 text-right ${data.amount < 0 ? 'text-error' : 'text-primary'}">₹${Math.abs(data.amount).toFixed(2)}</td>
+                 <td class="px-gutter py-4 text-center">${data.status}</td>
+               `;
+               tbody.appendChild(row);
+             }
+             if (emptyState) emptyState.classList.add('hidden');
+             hideModal();
+             loadStats();
+           });
+         });
+       }
+     });
+   </script>
+</body></html>
